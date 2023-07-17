@@ -52,9 +52,14 @@ export class UsuarioService {
   }
 
   async deletaUsuario(id: string) {
-    const resultado = await this.usuarioRepository.delete(id);
+    const usuario = await this.usuarioRepository.findOneBy({ id });
 
-    if (!resultado.affected)
-      throw new NotFoundException('O usuário não foi encontrado.');
+    if (!usuario) {
+      throw new NotFoundException('O usuário não foi encontrado');
+    }
+
+    await this.usuarioRepository.delete(usuario.id);
+
+    return usuario;
   }
 }

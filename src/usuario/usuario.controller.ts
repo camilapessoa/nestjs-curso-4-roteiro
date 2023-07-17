@@ -21,8 +21,8 @@ export class UsuarioController {
     const usuarioCriado = await this.usuarioService.criaUsuario(dadosDoUsuario);
 
     return {
-      usuario: new ListaUsuarioDTO(usuarioCriado.id, usuarioCriado.nome),
       messagem: 'usuário criado com sucesso',
+      usuario: new ListaUsuarioDTO(usuarioCriado.id, usuarioCriado.nome),
     };
   }
 
@@ -30,7 +30,10 @@ export class UsuarioController {
   async listUsuarios() {
     const usuariosSalvos = await this.usuarioService.listUsuarios();
 
-    return usuariosSalvos;
+    return {
+      mensagem: 'Usuários obtidos com sucesso.',
+      usuarios: usuariosSalvos,
+    };
   }
 
   @Put('/:id')
@@ -44,8 +47,8 @@ export class UsuarioController {
     );
 
     return {
-      usuario: usuarioAtualizado,
       messagem: 'usuário atualizado com sucesso',
+      usuario: usuarioAtualizado,
     };
   }
 
@@ -54,8 +57,8 @@ export class UsuarioController {
     const usuarioRemovido = await this.usuarioService.deletaUsuario(id);
 
     return {
-      usuario: usuarioRemovido,
       messagem: 'usuário removido com suceso',
+      usuario: usuarioRemovido,
     };
   }
 }

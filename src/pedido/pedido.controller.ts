@@ -24,14 +24,21 @@ export class PedidoController {
       usuarioId,
       dadosDoPedido,
     );
-    return pedidoCriado;
+
+    return {
+      mensagem: 'Pedido feito com sucesso.',
+      pedido: pedidoCriado,
+    };
   }
 
   @Get()
   async obtemPedidosDeUsuario(@Query('usuarioId') usuarioId: string) {
     const pedidos = await this.pedidoService.obtemPedidosDeUsuario(usuarioId);
 
-    return pedidos;
+    return {
+      mensagem: 'Pedidos obtidos com sucesso.',
+      pedidos,
+    };
   }
 
   @Patch(':id')
