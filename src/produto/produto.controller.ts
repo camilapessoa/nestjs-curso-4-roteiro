@@ -1,4 +1,4 @@
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
@@ -31,16 +31,20 @@ export class ProdutoController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async listaTodos() {
-    return this.produtoService.listaProdutos();
+    const produtos = await this.produtoService.listaProdutos();
+
+    return produtos;
   }
 
   @Get('/:id')
   @UseInterceptors(CacheInterceptor)
+  @CacheTTL(60 * 1000)
   async listaUm(@Param('id') id: string) {
     const produtoSalvo = await this.produtoService.listaUmProduto(id);
 
-    console.log('Produto sendo buscando do BD!');
+    console.log('Produto sendo buscado do BD!');
 
     return produtoSalvo;
   }
