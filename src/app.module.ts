@@ -10,11 +10,14 @@ import { APP_FILTER } from '@nestjs/core';
 import { FiltroDeExcecaoGlobal } from './filtros/filtro-de-excecao-global';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 
 @Module({
   imports: [
     UsuarioModule,
     ProdutoModule,
+    PedidoModule,
+    AutenticacaoModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -22,7 +25,6 @@ import { redisStore } from 'cache-manager-redis-yet';
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],
     }),
-    PedidoModule,
     CacheModule.registerAsync({
       useFactory: async () => ({
         store: await redisStore({ ttl: 10 * 1000 }),
