@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { HashearSenhaPipe } from '../pipes/hashear-senha.pipe';
+import { HashearSenhaPipe } from '../../recursos/pipes/hashear-senha.pipe';
 import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
 import { ListaUsuarioDTO } from './dto/ListaUsuario.dto';
