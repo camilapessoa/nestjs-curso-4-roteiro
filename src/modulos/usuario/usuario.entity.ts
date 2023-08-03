@@ -8,20 +8,21 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
+@Exclude()
 @Entity({ name: 'usuarios' })
 export class UsuarioEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Expose()
   @Column({ name: 'nome', length: 100, nullable: false })
   nome: string;
 
   @Column({ name: 'email', length: 70, nullable: false })
   email: string;
 
-  @Exclude()
   @Column({ name: 'senha', length: 255, nullable: false })
   senha: string;
 
